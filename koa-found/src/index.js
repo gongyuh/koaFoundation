@@ -8,8 +8,11 @@ import koaBody from 'koa-body'
 import jsonutil from 'koa-json' 
 import cors from '@koa/cors'
 import compose from 'koa-compose'
+import compress from 'koa-compress'
 
 const app = new koa()
+
+const isDevMode = (process.env.NODE_ENV === 'production' ? false : true)
 
 // app.use(helmet())
 // app.use(statics(path.join(__dirname,'../public')))
@@ -21,6 +24,10 @@ const middleware = compose([
     jsonutil({pretty:false,param:'pretty'}),
     helmet()
 ])
+
+if(!isDevMode){
+    app.use(compress())
+}
 
 app.use(middleware)
 app.use(router())

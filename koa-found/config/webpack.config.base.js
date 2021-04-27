@@ -1,18 +1,18 @@
 const path = require('path')
+const util = require('./util')
 const webpack = require('webpack')
 const nodeExcternals = require('webpack-node-externals')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const { webpack } = require('_webpack@5.35.1@webpack')
 
 const webpackConfig = {
     target:'node',
     mode:'development',
     entry:{
-        server:path.join(__dirname,'src/index.js')
+        server:path.join(util.APP_PATH,'index.js')
     },
     output:{
         filename:'[name].bundle.js',
-        path:path.join(__dirname,'./dist')
+        path:util.DIST_PATH
     },
     devtool:'eval-source-map',
     module:{
